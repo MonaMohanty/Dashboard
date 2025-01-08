@@ -27,6 +27,72 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage });
 
 
+  app.get("/fetch-csv", async (req, res) => {
+    const { fileId, maxRows = 100, startIndex = 0 } = req.query; // Accept file ID and maxRows from the client
+    // console.log(fileId, maxRows, startIndex);
+    if (!fileId) {
+      return res.status(400).send("Missing 'fileId' query parameter.");
+    }
+  
+    const fileUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+  
+    try {
+      // Request to get the file from Google Drive
+      const fileResponse = await axios.get(fileUrl, {
+        maxRedirects: 5, // Allow sufficient redirects
+        responseType: "stream",
+        timeout: 60000,
+      });
+  
+      // Set the response headers to handle chunked transfer encoding
+      res.setHeader("Content-Type", "application/json");
+      res.flushHeaders(); // Start sending data immediately
+  
+      // Stream and parse the CSV file
+      const csvStream = new PassThrough();
+      fileResponse.data.pipe(csvStream);
+  
+      let rowCount = 0;
+      let sentCount = 0;
+  
+      csvStream
+        .pipe(csvParser())
+        .on("data", (row) => {
+          rowCount++;
+          // Skip rows until we reach the startIndex
+          if (rowCount <= startIndex) return;
+  
+          // Send only up to maxRows rows
+          if (sentCount < maxRows) {
+            res.write(JSON.stringify(row) + "\n");
+            sentCount++;
+          }
+        })
+        .on("end", () => {
+          console.log(`Successfully streamed ${sentCount} rows starting from index ${startIndex}.`);
+          res.end(); // End the response when parsing is done
+        })
+        .on("error", (error) => {
+          console.error("Error parsing CSV:", error.message);
+          res.status(500).send("Error parsing CSV.");
+        });
+    } catch (error) {
+      if (error.response) {
+        console.error(
+          `Error fetching file: ${error.message}, Status Code: ${error.response.status}`
+        );
+        res
+          .status(500)
+          .send(
+            `Failed to fetch file from Google Drive. Status Code: ${error.response.status}`
+          );
+      } else {
+        console.error("Error fetching file:", error.message);
+        res.status(500).send("Failed to fetch file from Google Drive.");
+      }
+    }
+  });
+
 // API Endpoint to handle file uploads
 app.post('/detect-image', upload.single('image'), (req, res) => {
     if (!req.file) {
