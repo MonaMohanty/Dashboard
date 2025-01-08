@@ -22,8 +22,6 @@ function App() {
 				<Route path='/' element={<OverviewPage />} />
 				<Route path='/products' element={<ProductsPage />} />
 				<Route path='/analytics' element={<AnalyticsPage />} />
-				<Route path='/anomaly-detection/cpuTemp-vs-time' element={<AnalyticsPage />} />
-				<Route path='/anomaly-detection/cpuUsage-vs-time' element={<AnalyticsPage />} />
 				<Route path='/Object-Detection/Image' element={<ImageDetection />} />
 				<Route path='/Object-Detection/Video' element={<VideoDetection />} />
 	
