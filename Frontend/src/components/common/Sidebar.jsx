@@ -48,8 +48,8 @@ const Sidebar = () => {
 
 	return (
 		<motion.div
-			className={`relative z-10 transition-all duration-300 ease-out flex-shrink-0 ${
-				isSidebarOpen ? "w-64" : "w-20"
+			className={`absolute z-20 h-screen transition-all duration-300 ease-out flex-shrink-0 ${
+				isSidebarOpen ? "w-64 " : "w-20"
 			}`}
 			animate={{ width: isSidebarOpen ? 300 : 80 }}
 		>
@@ -68,7 +68,7 @@ const Sidebar = () => {
 						<div key={item.href}>
 							{!item.subOptions ? (
 								<Link to={item.href}>
-									<div className='flex items-center p-4 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors cursor-pointer'>
+									<div className='flex items-center p-4 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors cursor-pointer' onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
 										<div className='flex items-center space-x-2'>
 											<item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />
 											<AnimatePresence>
@@ -95,11 +95,12 @@ const Sidebar = () => {
 											setOpenSubmenu(openSubmenu === item.name ? null : item.name)
 										}
 									>
-										<div className='flex items-center space-x-2'>
+										<div className='flex items-center space-x-2' >
 											<item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />
 											<AnimatePresence>
 												{isSidebarOpen && (
 													<motion.span
+													
 														className='ml-4 whitespace-nowrap'
 														initial={{ opacity: 0, width: 0 }}
 														animate={{ opacity: 1, width: "auto" }}
@@ -132,7 +133,7 @@ const Sidebar = () => {
 												transition={{ duration: 0.3 }}
 											>
 												{item.subOptions.map((sub) => (
-													<Link key={sub.href} to={sub.href}>
+													<Link key={sub.href} to={sub.href} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
 														<div className='p-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-gray-700 transition-colors mb-1'>
 															{sub.name}
 														</div>
