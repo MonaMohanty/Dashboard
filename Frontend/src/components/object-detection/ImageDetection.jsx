@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FiUpload } from 'react-icons/fi'; // Upload Icon
+import { FaFile, FaFilePdf, FaFileWord, FaFileExcel, FaFileImage, FaFileVideo, FaFileAudio, FaFileCode } from 'react-icons/fa';
+
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Loader from '../utils/Loader';
@@ -115,7 +117,7 @@ const ImageDetection = () => {
   // console.log(annotatedVideo)
 
   return (
-    <div className="flex flex-col h-screen overflow-auto border w-[89%] absolute right-0 z-10 ">
+    <div className="flex flex-col h-screen overflow-auto  w-[89%] absolute right-0 z-10 ">
 
 
 
@@ -129,126 +131,140 @@ const ImageDetection = () => {
 
 
 
-        <div className="mb-6 flex items-center justify-center  flex-wrap">
-
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Image 1:</h3> */}
-            <div className='w-48 h-48 overflow-hidden border border-gray-300 rounded-lg'>
-              <img
-                src="/sample_files/sample_image_3.jpg"
-                alt="Uploaded Preview"
-                className="w-full h-full object-contain rounded-lg border border-gray-300"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
-            <div className='w-48 h-48 overflow-hidden border border-gray-300 rounded-lg'>
-              <img
-                src="/sample_files/clock_output.jpeg"
-                alt="Uploaded Preview"
-                className="w-full h-full object-contain rounded-lg border border-gray-300"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Image 2:</h3> */}
-            <div className='w-48 h-48 overflow-hidden border border-gray-300 rounded-lg'>
-              <img
-                src="/sample_files/sample_image_4.jpg"
-                alt="Uploaded Preview"
-                className="w-full h-full object-contain rounded-lg border border-gray-300"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 2:</h3> */}
-            <div className='w-48 h-48 overflow-hidden border border-gray-300 rounded-lg'>
-              <img
-                src="/sample_files/animals_output.jpeg"
-                alt="Uploaded Preview"
-                className="w-full h-full object-contain rounded-lg border border-gray-300"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 2:</h3> */}
-            <div className='w-48 h-48 overflow-hidden border border-gray-300 rounded-lg'>
-              <img
-                src="/sample_files/sample_image_5.jpg"
-                alt="Uploaded Preview"
-                className="w-full h-full object-contain rounded-lg border border-gray-300"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 2:</h3> */}
-            <div className='w-48 h-48 overflow-hidden border border-gray-300 rounded-lg'>
-              <img
-                src="/sample_files/sample_image_6.jpg"
-                alt="Uploaded Preview"
-                className="w-full h-full object-contain rounded-lg border border-gray-300"
-              />
-            </div>
-
-          </div>
-
-
-        </div>
-
-        <div className='flex space-x-3 items-center justify-center w-fit mx-auto mb-4'>
-          {image && (
-            <div className='mt-6'>
-              <h3 className="mb-4 font-semibold">Uploaded Image:</h3>
-              <div className='w-48 h-48 overflow-hidden  '>
-                <img
-                  src={image}
-                  alt="Uploaded Preview"
-                  className="w-full h-full object-contain rounded-lg border "
-                />
+        <div className="mb-6 flex  items-center  gap-44 flex-wrap ">
+          <div className=''>
+            {/* 1st row */}
+            <div className='flex '>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Image 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <img
+                    src="/sample_files/sample_image_3.jpg"
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <img
+                    src="/sample_files/clock_output.jpeg"
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Image 2:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <img
+                    src="/sample_files/sample_image_4.jpg"
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
               </div>
             </div>
-          )}
+            {/* 2nd row */}
 
-          {!loadingImage && annotatedImage && (
-            <div className="mt-6">
-              <h3 className="mb-4 font-semibold">Annotated Image:</h3>
-              <div className="w-48 h-48 overflow-hidden ">
-                <img
-                  src={annotatedImage}
-                  alt="Annotated Preview"
-                  className="object-contain  w-full h-full border rounded-lg"
-                />
+            <div className='flex'>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 2:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <img
+                    src="/sample_files/animals_output.jpeg"
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 2:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <img
+                    src="/sample_files/sample_image_5.jpg"
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 2:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <img
+                    src="/sample_files/sample_image_6.jpg"
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+
               </div>
             </div>
-          )}
 
-          {loadingImage && <Loader />}
+          </div>
+
+
+          <div className=''>
+            <div className='flex flex-col  items-center justify-center w-fit mx-auto mb-4'>
+              {image ? (
+                <div className='mt-6'>
+                  {/* <h3 className="mb-4 font-semibold">Uploaded Image:</h3> */}
+                  <div className='w-56 h-56 overflow-hidden mx-4 '>
+                    <img
+                      src={image}
+                      alt="Uploaded Preview"
+                      className="w-full h-full object-contain rounded-lg border border-gray-700"
+                    />
+                  </div>
+                </div>
+              ) : (<FaFileImage className='w-52 h-52 mt-6 mx-4 text-gray-400 ' />)}
+
+              {!loadingImage && annotatedImage && (
+                <div className="mt-6">
+                  {/* <h3 className="mb-4 font-semibold">Annotated Image:</h3> */}
+                  <div className="w-56 h-56 overflow-hidden mx-4">
+                    <img
+                      src={annotatedImage}
+                      alt="Annotated Preview"
+                      className="object-contain  w-full h-full border border-gray-700 rounded-lg"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className='flex space-x-3 mt-3 items-center justify-center'>
+                <label className="relative bg-blue-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-blue-700">
+                  Upload Image
+                  <input
+                    type="file"
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                  />
+                </label>
+
+                {image && (
+                  <button
+                    onClick={handleObjectDetection}
+                    className=" bg-green-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-green-700"
+                  >
+                    Detect Objects
+                  </button>
+                )}
+              </div>
+
+              {loadingImage && <div className='mt-10'><Loader /></div>}
+            </div>
+          </div>
         </div>
 
-        <div className='flex space-x-3 items-center justify-center'>
-          <label className="relative bg-blue-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-blue-700">
-            Select Image
-            <input
-              type="file"
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              accept="image/*"
-              onChange={handleFileSelect}
-            />
-          </label>
 
-          {image && (
-            <button
-              onClick={handleObjectDetection}
-              className=" bg-green-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-green-700"
-            >
-              Detect Objects
-            </button>
-          )}
-        </div>
+
+
       </div>
 
-      
+
     </div>
   );
 };
