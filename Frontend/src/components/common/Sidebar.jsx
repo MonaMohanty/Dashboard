@@ -54,6 +54,7 @@ const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [openSubmenu, setOpenSubmenu] = useState(null); // Tracks open submenu
 
+
   return (
     <motion.div
       className={`relative max-h-screen z-10 transition-all duration-300 ease-out flex-shrink-0 ${
@@ -167,6 +168,9 @@ const Sidebar = () => {
       </div>
     </motion.div>
   );
+
+
+
 };
 
 export default Sidebar;
