@@ -16,7 +16,7 @@ const AnomalyDetection = () => {
   // Parse CSV data from backend
   const fetchData = async () => {
     const fileId = "1Xy5X4U-wDxtJhcQEpH8V0H7IGFBgKQqi"; // File ID to send
-    const maxRows = 200;
+    const maxRows = 30;
 
     // console.log('fetching data with last index as', lastFetchedIndex);
 

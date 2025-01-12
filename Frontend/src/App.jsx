@@ -8,6 +8,7 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import ImageDetection from "./components/object-detection/ImageDetection";
 import VideoDetection from "./components/object-detection/VideoDetection";
 import AnomalyDetection from "./components/AnomalyDetection/AnomalyDetection";
+import SanitizationDetection from "./components/SanitizationDetection/SanitizationDetection";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/anomaly-detection" element={<AnomalyDetection />} />
+        <Route
+          path="/sanitization-monitoring"
+          element={<SanitizationDetection />}
+        />
         <Route path="/Object-Detection/Image" element={<ImageDetection />} />
         <Route path="/Object-Detection/Video" element={<VideoDetection />} />
       </Routes>

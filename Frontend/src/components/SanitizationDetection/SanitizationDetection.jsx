@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import TimeVsElementGraph from "../GenerateGraphs/TimeVsElementGraph/TimeVsElementGraph";
-import DataVsAnomaliesGraph from "../GenerateGraphs/DataVsAnomaliesGraph/DataVsAnomaliesGraph";
+// import TimeVsElementGraph from "../GenerateGraphs/TimeVsElementGraph/TimeVsElementGraph";
+import TimeVsElementSazitization from "../GenerateGraphs/SanitizationGraph/TimeVsElementSanitization";
+// import DataVsAnomaliesGraph from "../GenerateGraphs/DataVsAnomaliesGraph/DataVsAnomaliesGraph";
 
 const SanitizationDetection = () => {
   const [data, setData] = useState([]);
@@ -15,14 +16,14 @@ const SanitizationDetection = () => {
 
   // Parse CSV data from backend
   const fetchData = async () => {
-    const fileId = "1Xy5X4U-wDxtJhcQEpH8V0H7IGFBgKQqi"; // File ID to send
-    const maxRows = 200;
+    const fileId = "1XQ867NlPleUCzRm2weroUm9ZfPJQywCz"; // File ID to send
+    const maxRows = 50;
 
     // console.log('fetching data with last index as', lastFetchedIndex);
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/fetch-csv?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
+        `http://localhost:5000/fetch-data?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
         {
           responseType: "text",
         }
@@ -98,7 +99,7 @@ const SanitizationDetection = () => {
   return (
     <div className="w-full px-5 my-5 z-10 min-h-screen">
       <h2 className="text-center font-bold text-5xl mb-10">
-        Get Data to Analyse your Machine
+        Sanitization Detection
       </h2>
       <div className="text-center space-x-5">
         <button
@@ -160,96 +161,42 @@ const SanitizationDetection = () => {
           </div>
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
-            <TimeVsElementGraph
+            <TimeVsElementSazitization
               data={data}
-              metric="cpu_temperature"
-              label="CPU Temperature (°C)"
-              title="CPU Temperature Over Time"
-              color="rgba(255, 99, 132, 1)"
-            />
-            <TimeVsElementGraph
-              data={data}
-              metric="cpu_usage"
-              label="CPU Usage (%)"
-              title="CPU Usage Over Time"
-              color="rgba(54, 162, 235, 1)"
-            />
-            <TimeVsElementGraph
-              data={data}
-              metric="battery_level"
-              label="Battery Level (%)"
-              title="Battery Level Over Time"
+              metric="MQ135 Raw Value"
+              label="MQ135 Raw Value"
+              title="MQ135 Raw Value"
               color="rgba(75, 192, 192, 1)"
             />
-            <TimeVsElementGraph
+            <TimeVsElementSazitization
               data={data}
-              metric="cpu_load"
-              label="CPU Load"
-              title="CPU Load Over Time"
-              color="rgba(153, 102, 255, 1)"
-            />
-            <TimeVsElementGraph
-              data={data}
-              metric="memory_usage"
-              label="Memory Usage (%)"
-              title="Memory Usage Over Time"
-              color="rgba(255, 159, 64, 1)"
-            />
-            <TimeVsElementGraph
-              data={data}
-              metric="cpu_power"
-              label="CPU Power (W)"
-              title="CPU Power Over Time"
+              metric="CO2 Concentration (ppm)"
+              label="CO2 Concentration (ppm)"
+              title="CO2 Concentration Detection"
               color="rgba(255, 99, 132, 1)"
             />
+            <TimeVsElementSazitization
+              data={data}
+              metric="Ammonia Concentration (ppm)"
+              label="Ammonia Concentration (ppm)"
+              title="Ammonia Concentration Detection"
+              color="rgba(54, 162, 235, 1)"
+            />
 
-            <DataVsAnomaliesGraph
+            {/* <DataVsAnomaliesGraph
               data={data}
               property="cpu_temperature"
               label="CPU Temperature (°C)"
               yLabel="CPU Temperature (°C)"
               normalColor="rgba(54, 162, 235, 1)"
             />
-
             <DataVsAnomaliesGraph
               data={data}
-              property="cpu_load"
-              label="CPU Load"
-              yLabel="CPU Load (%)"
-              normalColor="rgba(75, 192, 192, 1)"
-            />
-
-            <DataVsAnomaliesGraph
-              data={data}
-              property="memory_usage"
-              label="Memory Usage (%)"
-              yLabel="Memory Usage (%)"
-              normalColor="rgba(153, 102, 255, 1)"
-            />
-
-            <DataVsAnomaliesGraph
-              data={data}
-              property="cpu_power"
-              label="CPU Power (W)"
-              yLabel="CPU Power (W)"
-              normalColor="rgba(255, 159, 64, 1)"
-            />
-
-            <DataVsAnomaliesGraph
-              data={data}
-              property="battery_level"
-              label="Battery Level (%)"
-              yLabel="Battery Level (%)"
+              property="cpu_temperature"
+              label="CPU Temperature (°C)"
+              yLabel="CPU Temperature (°C)"
               normalColor="rgba(54, 162, 235, 1)"
-            />
-
-            <DataVsAnomaliesGraph
-              data={data}
-              property="cpu_usage"
-              label="CPU Usage (%)"
-              yLabel="CPU Usage (%)"
-              normalColor="rgba(255, 205, 86, 1)"
-            />
+            /> */}
           </div>
         </div>
       )}
