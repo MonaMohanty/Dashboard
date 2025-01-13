@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+yolov8n.pt
+yolov8l.pt
+yolov8s.pt
+processed
