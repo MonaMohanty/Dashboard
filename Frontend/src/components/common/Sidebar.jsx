@@ -57,9 +57,9 @@ const Sidebar = () => {
 
   return (
     <motion.div
-      className={`relative max-h-screen z-20 transition-all duration-300 ease-out flex-shrink-0 ${
+      className={`absolute h- z-20 transition-all duration-300 ease-out flex-shrink-0 ${
         isSidebarOpen ? "w-64" : "w-20"
-      }`}
+      } h-screen min-h-full`}
       animate={{ width: isSidebarOpen ? 300 : 80 }}
     >
       <div className="h-full bg-gray-800 bg-opacity-50 backdrop-blur-md p-4 flex flex-col border-r border-gray-700">
@@ -76,7 +76,7 @@ const Sidebar = () => {
           {SIDEBAR_ITEMS.map((item) => (
             <div key={item.href}>
               {!item.subOptions ? (
-                <Link to={item.href}>
+                <Link to={item.href} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                   <div className="flex items-center p-4 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
                     <div className="flex items-center space-x-2">
                       <item.icon
@@ -151,7 +151,7 @@ const Sidebar = () => {
                           transition={{ duration: 0.3 }}
                         >
                           {item.subOptions.map((sub) => (
-                            <Link key={sub.href} to={sub.href}>
+                            <Link key={sub.href} to={sub.href} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                               <div className="p-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-gray-700 transition-colors mb-1">
                                 {sub.name}
                               </div>
