@@ -117,7 +117,7 @@ const ImageDetection = () => {
   // console.log(annotatedVideo)
 
   return (
-    <div className="flex flex-col h-screen overflow-auto  w-[89%] absolute right-0 z-10 ">
+    <div className="flex flex-col h-screen overflow-auto  w-[85%] absolute right-0 z-10 ">
 
 
 
@@ -210,7 +210,7 @@ const ImageDetection = () => {
               {image ? (
                 <div className='mt-6'>
                   {/* <h3 className="mb-4 font-semibold">Uploaded Image:</h3> */}
-                  <div className='w-56 h-56 overflow-hidden mx-4 '>
+                  <div className='w-52 h-52 overflow-hidden  '>
                     <img
                       src={image}
                       alt="Uploaded Preview"
@@ -223,7 +223,7 @@ const ImageDetection = () => {
               {!loadingImage && annotatedImage && (
                 <div className="mt-6">
                   {/* <h3 className="mb-4 font-semibold">Annotated Image:</h3> */}
-                  <div className="w-56 h-56 overflow-hidden mx-4">
+                  <div className="w-52 h-52 overflow-hidden mx-4">
                     <img
                       src={annotatedImage}
                       alt="Annotated Preview"

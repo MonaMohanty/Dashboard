@@ -57,7 +57,7 @@ const Sidebar = () => {
 
   return (
     <motion.div
-      className={`relative max-h-screen z-10 transition-all duration-300 ease-out flex-shrink-0 ${
+      className={`relative max-h-screen z-20 transition-all duration-300 ease-out flex-shrink-0 ${
         isSidebarOpen ? "w-64" : "w-20"
       }`}
       animate={{ width: isSidebarOpen ? 300 : 80 }}

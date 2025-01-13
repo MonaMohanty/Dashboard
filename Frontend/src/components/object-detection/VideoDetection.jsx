@@ -116,166 +116,169 @@ const VideoDetection = () => {
   console.log(annotatedVideo)
 
   return (
-    <div className="flex flex-col w-[84%] overflow-auto  h-screen sm:w-[87%] md:w-[89%]  absolute right-0 z-10">
-      
-        
+    <div className="flex flex-col w-[84%] overflow-auto  h-screen sm:w-[87%] md:w-[85%]  absolute right-0 z-10">
+
+
 
       {/* Video Section */}
       <div className="text-center ">
-      <h1 className="mt-10 text-xl sm:text-2xl xl:text-4xl font-semibold text-center  ">YOLO V8 for seamless video detection...</h1>
+        <h1 className="mt-10 text-xl sm:text-2xl xl:text-4xl font-semibold text-center  ">YOLO V8 for seamless video detection...</h1>
 
         <div className="mb-6 flex items-start gap-44  flex-wrap">
           <div>
             <div className='flex'>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Video 1:</h3> */}
-            <div className='w-56 h-56 overflow-hidden rounded-lg'>
-              <video
-                src="/sample_files/sample_video_2.mp4"
-                autoPlay={true}
-                loop={true}
-                muted={true}
-                className="w-full h-full object-contain rounded-lg border border-gray-600"
-              />
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Video 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden rounded-lg'>
+                  <video
+                    src="/sample_files/sample_video_2.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted={true}
+                    className="w-full h-full object-contain rounded-lg border border-gray-600"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <video
+                    src="/sample_files/sample_video_1_output.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted={true}
+                    className="w-full h-full object-contain rounded-lg border border-gray-600"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Video 2:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <video
+                    src="/sample_files/sample_video_3.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted={true}
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
-            <div className='w-56 h-56 overflow-hidden  rounded-lg'>
-              <video
-                src="/sample_files/sample_video_1_output.mp4"
-                autoPlay={true}
-                loop={true}
-                muted={true}
-                className="w-full h-full object-contain rounded-lg border border-gray-600"
-              />
+            <div className='flex'>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <video
+                    src="/sample_files/sample_video_2_output.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted={true}
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <video
+                    src="/sample_files/sample_video_4.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted={true}
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
+              <div className='mt-6 mx-4'>
+                {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
+                <div className='w-56 h-56 overflow-hidden  rounded-lg'>
+                  <video
+                    src="/sample_files/sample_video_5.mp4"
+                    autoPlay={true}
+                    loop={true}
+                    muted={true}
+                    className="w-full h-full object-contain rounded-lg border border-gray-700"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Video 2:</h3> */}
-            <div className='w-56 h-56 overflow-hidden  rounded-lg'>
-              <video
-                src="/sample_files/sample_video_3.mp4"
-                autoPlay={true}
-                loop={true}
-                muted={true}
-                className="w-full h-full object-contain rounded-lg border border-gray-700"
-              />
-            </div>
-          </div>
-          </div>
-          <div className='flex'>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
-            <div className='w-56 h-56 overflow-hidden  rounded-lg'>
-              <video
-                src="/sample_files/sample_video_2_output.mp4"
-                autoPlay={true}
-                loop={true}
-                muted={true}
-                className="w-full h-full object-contain rounded-lg border border-gray-700"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
-            <div className='w-56 h-56 overflow-hidden  rounded-lg'>
-              <video
-                src="/sample_files/sample_video_4.mp4"
-                autoPlay={true}
-                loop={true}
-                muted={true}
-                className="w-full h-full object-contain rounded-lg border border-gray-700"
-              />
-            </div>
-          </div>
-          <div className='mt-6 mx-4'>
-            {/* <h3 className="mb-4 font-semibold">Sample Output 1:</h3> */}
-            <div className='w-56 h-56 overflow-hidden  rounded-lg'>
-              <video
-                src="/sample_files/sample_video_5.mp4"
-                autoPlay={true}
-                loop={true}
-                muted={true}
-                className="w-full h-full object-contain rounded-lg border border-gray-700"
-              />
-            </div>
-          </div>
-          </div>
+
           </div>
 
           <div className=''>
-          <div className='flex flex-col  items-center justify-center w-fit mx-auto mb-4'>
-        {video ? (
-            <div className='mt-6'>
-              {/* <h3 className="mb-4 font-semibold">Original Video:</h3> */}
-              <div className='w-56 h-56 overflow-hidden  rounded-lg'>
-                <video
-                  src={video}
-                  autoPlay={true}
-                  loop={true}
-                  muted={true}
-                  className="w-full h-full object-contain rounded-lg border border-gray-700"
-                />
+            <div className='flex flex-col  items-center justify-center w-fit mx-auto mb-4'>
+              {video ? (
+                <div className='mt-6'>
+                  {/* <h3 className="mb-4 font-semibold">Original Video:</h3> */}
+                  <div className='w-52 h-52 overflow-hidden  rounded-lg'>
+                    <video
+                      src={video}
+                      autoPlay={true}
+                      loop={true}
+                      muted={true}
+                      className="w-full h-full object-contain rounded-lg border border-gray-700"
+                    />
+                  </div>
+                </div>
+              ) : (<FaFileVideo className='w-52 h-52 mt-6 mx-4 text-gray-400 ' />)}
+
+              {!loadingVideo && annotatedVideo && (
+                <div className="mt-6">
+                  {/* <h3 className="mb-4 font-semibold">Annotated Video:</h3> */}
+                  <div className="w-52 h-52 overflow-hidden  rounded-lg">
+                    {annotatedVideo && <video
+                      src={annotatedVideo}  // This should be set correctly to the Blob URL
+                      autoPlay={true}
+                      loop={true}
+                      muted={true}
+                      className="object-contain w-full h-full rounded-lg border border-gray-700"
+                    />}
+                  </div>
+                </div>
+              )}
+              
+              {loadingVideo && <div className='mt-5'><Loader /></div>}
+
+              <div className='flex space-x-3 items-center justify-center mt-4'>
+                <label className="relative inline-block bg-blue-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-blue-700">
+                  Upload Video
+                  <input
+                    type="file"
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    accept="video/*"
+                    onChange={handleVideoSelect}
+                  />
+                </label>
+
+                {video && (
+                  <button
+                    onClick={handleVideoDetection}
+                    className=" bg-green-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-green-700"
+                  >
+                    Detect Objects
+                  </button>
+                )}
               </div>
+
+              
+
             </div>
-          ):(<FaFileVideo className='w-52 h-52 mt-6 mx-4 text-gray-400 '/>)}
-
-        {!loadingVideo && annotatedVideo && (
-            <div className="mt-6">
-              {/* <h3 className="mb-4 font-semibold">Annotated Video:</h3> */}
-              <div className="w-56 h-56 overflow-hidden  rounded-lg">
-                {annotatedVideo && <video
-                  src={annotatedVideo}  // This should be set correctly to the Blob URL
-                  autoPlay={true}
-                  loop={true}
-                  muted={true}
-                  className="object-contain w-full h-full rounded-lg border border-gray-700"
-                />}
-              </div>
-            </div>
-          )}
-
-      <div className='flex space-x-3 items-center justify-center mt-4'>
-          <label className="relative inline-block bg-blue-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-blue-700">
-            Upload Video
-            <input
-              type="file"
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              accept="video/*"
-              onChange={handleVideoSelect}
-            />
-          </label>
-
-          {video && (
-            <button
-              onClick={handleVideoDetection}
-              className=" bg-green-600 text-white font-medium px-6 py-3 rounded cursor-pointer hover:bg-green-700"
-            >
-              Detect Objects in Video
-            </button>
-          )}
-        </div>
-
-        {loadingVideo && <div className='mt-5'><Loader /></div>}
-
-        </div>
           </div>
 
 
-          
-
-          
 
 
-          
+
+
+
+
         </div>
 
-        
 
-        
+
+
       </div>
     </div>
   );
