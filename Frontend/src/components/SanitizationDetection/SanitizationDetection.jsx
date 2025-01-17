@@ -5,21 +5,19 @@ import TimeVsElementSazitization from "../GenerateGraphs/SanitizationGraph/TimeV
 // import DataVsAnomaliesGraph from "../GenerateGraphs/DataVsAnomaliesGraph/DataVsAnomaliesGraph";
 
 const SanitizationDetection = () => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [streaming, setStreaming] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
-  //   const [lastFetchedIndex, setLastFetchedIndex] = useState(0); // Track the last fetched index
-  const lastFetchedIndexRef = useRef(0);
-  const MAX_ROWS = 600;
+  const [data, setData] = useState([]); // State to store the most recent rows
+  const [error, setError] = useState(null); // State to handle errors
+  const [loading, setLoading] = useState(false); // State to indicate loading
+  const [streaming, setStreaming] = useState(false); // State to track streaming status
+  const [intervalId, setIntervalId] = useState(null); // ID of the interval
+  const [hasMoreData, setHasMoreData] = useState(true); // Whether more data is available
 
-  // Parse CSV data from backend
+  const lastFetchedIndexRef = useRef(0); // Ref to track the last fetched index
+
+  // Function to fetch data from the server
   const fetchData = async () => {
     const fileId = "1XQ867NlPleUCzRm2weroUm9ZfPJQywCz"; // File ID to send
-    const maxRows = 50;
-
-    // console.log('fetching data with last index as', lastFetchedIndex);
+    const maxRows = 10; // Number of rows to fetch per request
 
     try {
       const response = await axios.get(
@@ -34,38 +32,30 @@ const SanitizationDetection = () => {
         .split("\n")
         .map((line) => JSON.parse(line));
 
-      // console.log(responseData.length)
-
       if (responseData.length > 0) {
-        console.log(
-          "Initial value of lastFetchedIndex:",
-          lastFetchedIndexRef.current
-        );
-
-        // Update the ref directly
+        console.log("Fetched rows:", responseData);
+        // Update the ref directly with the new index
         lastFetchedIndexRef.current += responseData.length;
 
-        // console.log('last fetched index is now', lastFetchedIndex+responseData.length);
-        setData((prevData) => {
-          // Update data without creating a new array if possible
-          const combinedData = prevData.concat(responseData);
-
-          if (combinedData.length > MAX_ROWS) {
-            // Remove the oldest rows directly in-place
-            combinedData.splice(0, combinedData.length - MAX_ROWS);
-          }
-
-          return combinedData;
-        });
+        // Update state to store only the most recent rows
+        setData(responseData);
+      } else {
+        console.log("All data has been fetched.");
+        setHasMoreData(false); // Signal that no more data is available
+        handleStopClick(); // Stop streaming automatically
       }
     } catch (err) {
-      setError("Failed to fetch CSV data.");
+      if (err.response?.status === 404) {
+        console.log("Failed to fetch CSV data.");
+        setHasMoreData(false); // Stop further requests
+        handleStopClick(); // Stop streaming automatically
+      } else {
+        setError("No more data to fetch.");
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  // console.log('updated last index', lastFetchedIndex)
 
   // Start streaming when button is clicked
   const handleButtonClick = () => {
@@ -73,8 +63,10 @@ const SanitizationDetection = () => {
       setLoading(true);
       setStreaming(true);
 
-      const newIntervalId = setInterval(fetchData, 3000); // Start streaming every 5 seconds
-      setIntervalId(newIntervalId);
+      if (!intervalId) {
+        const newIntervalId = setInterval(fetchData, 3000); // Fetch every 3 seconds
+        setIntervalId(newIntervalId);
+      }
     }
   };
 
@@ -82,17 +74,18 @@ const SanitizationDetection = () => {
   const handleStopClick = () => {
     setLoading(false);
     setStreaming(false);
+
     if (intervalId) {
       clearInterval(intervalId); // Clear the interval to stop streaming
       setIntervalId(null);
     }
   };
 
-  // Stop streaming when component unmounts or when needed
+  // Cleanup interval on component unmount
   useEffect(() => {
     return () => {
       if (intervalId) {
-        clearInterval(intervalId); // Clear the interval when the component unmounts
+        clearInterval(intervalId);
       }
     };
   }, [intervalId]);
@@ -104,7 +97,7 @@ const SanitizationDetection = () => {
       <div className="text-center space-x-5">
         <button
           onClick={handleButtonClick}
-          className="btn  bg-red-500 text-2xl"
+          className="btn  bg-blue-500 text-2xl px-5 py-2 rounded-lg"
           disabled={loading || streaming}
         >
           {!loading && !streaming ? "Start Streaming" : "Streaming Data..."}
@@ -112,14 +105,15 @@ const SanitizationDetection = () => {
         {streaming && (
           <button
             onClick={handleStopClick}
-            className="btn btn-danger text-2xl mt-4"
+            className="btn  bg-red-500 text-2xl mt-4  px-5 py-2 rounded-lg"
           >
             Stop Streaming
           </button>
         )}
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-center py-5">{error}</p>}
+      {!hasMoreData && <p>All data has been fetched.</p>}
 
       {loading ? (
         <div className="text-center min-h-[400px] flex justify-center items-center">
@@ -129,7 +123,7 @@ const SanitizationDetection = () => {
         <div>
           <div className="w-full">
             {data.length > 0 && (
-              <table className="hidden table-auto w-full mt-10 border-collapse border border-gray-300">
+              <table className=" table-auto w-full mt-10 border-collapse border border-gray-300">
                 <thead>
                   <tr>
                     {Object.keys(data[0]).map((key) => (
@@ -182,21 +176,6 @@ const SanitizationDetection = () => {
               title="Ammonia Concentration Detection"
               color="rgba(54, 162, 235, 1)"
             />
-
-            {/* <DataVsAnomaliesGraph
-              data={data}
-              property="cpu_temperature"
-              label="CPU Temperature (°C)"
-              yLabel="CPU Temperature (°C)"
-              normalColor="rgba(54, 162, 235, 1)"
-            />
-            <DataVsAnomaliesGraph
-              data={data}
-              property="cpu_temperature"
-              label="CPU Temperature (°C)"
-              yLabel="CPU Temperature (°C)"
-              normalColor="rgba(54, 162, 235, 1)"
-            /> */}
           </div>
         </div>
       )}

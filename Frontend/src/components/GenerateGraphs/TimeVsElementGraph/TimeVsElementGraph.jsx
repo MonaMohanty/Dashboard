@@ -24,14 +24,17 @@ ChartJS.register(
 
 const TimeVsElementGraph = ({ data, metric, label, title, color }) => {
   const [chartData, setChartData] = useState(null);
+  const [xAxisTitle, setXAxisTitle] = useState("Time");
 
   useEffect(() => {
     if (data) {
-      // Extract the timestamps and metric values
-      const times = data.map((item) =>
-        new Date(item.timestamp).toLocaleString()
+      // Extract the date and time separately
+      const times = data.map(
+        (item) => new Date(item.timestamp).toLocaleTimeString() // Only the time part
       );
-      const metricData = data.map((item) => parseFloat(item[metric])); // Use dynamic metric
+      const dateLabel = new Date(data[0]?.timestamp).toLocaleDateString(); // First data point's date
+
+      const metricData = data.map((item) => parseFloat(item[metric])); // Metric values
 
       // Prepare chart data structure
       setChartData({
@@ -47,6 +50,9 @@ const TimeVsElementGraph = ({ data, metric, label, title, color }) => {
           },
         ],
       });
+
+      // Set the x-axis title dynamically
+      setXAxisTitle(dateLabel);
     }
   }, [data, metric, label, color]);
 
@@ -62,7 +68,7 @@ const TimeVsElementGraph = ({ data, metric, label, title, color }) => {
               x: {
                 title: {
                   display: true,
-                  text: "Time",
+                  text: xAxisTitle,
                 },
               },
               y: {

@@ -9,7 +9,7 @@ const csvParser = require("csv-parser");
 const { PassThrough } = require("stream");
 
 const app = express();
-const PORT = 5000;
+const PORT = 5001;
 
 // Middleware
 app.use(cors({ origin: "*" }));
@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get("/fetch-csv", async (req, res) => {
-  const { fileId, maxRows = 100, startIndex = 0 } = req.query; // Accept file ID and maxRows from the client
+  const { fileId, maxRows = 10, startIndex = 0 } = req.query; // Accept file ID and maxRows from the client
   // console.log(fileId, maxRows, startIndex);
   if (!fileId) {
     return res.status(400).send("Missing 'fileId' query parameter.");
@@ -99,7 +99,7 @@ app.get("/fetch-csv", async (req, res) => {
 
 //sanitization
 app.get("/fetch-data", async (req, res) => {
-  const { fileId, maxRows = 100, startIndex = 0 } = req.query; // Accept file ID and maxRows from the client
+  const { fileId, maxRows = 10, startIndex = 0 } = req.query; // Accept file ID and maxRows from the client
   // console.log(fileId, maxRows, startIndex);
   if (!fileId) {
     return res.status(400).send("Missing 'fileId' query parameter.");

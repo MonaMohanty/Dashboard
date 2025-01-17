@@ -11,12 +11,12 @@ const AnomalyDetection = () => {
   const [intervalId, setIntervalId] = useState(null);
   //   const [lastFetchedIndex, setLastFetchedIndex] = useState(0); // Track the last fetched index
   const lastFetchedIndexRef = useRef(0);
-  const MAX_ROWS = 600;
+  // const MAX_ROWS = 600;
 
   // Parse CSV data from backend
   const fetchData = async () => {
     const fileId = "1Xy5X4U-wDxtJhcQEpH8V0H7IGFBgKQqi"; // File ID to send
-    const maxRows = 30;
+    const maxRows = 10;
 
     // console.log('fetching data with last index as', lastFetchedIndex);
 
@@ -43,22 +43,28 @@ const AnomalyDetection = () => {
 
         // Update the ref directly
         lastFetchedIndexRef.current += responseData.length;
+        setData(responseData);
 
         // console.log('last fetched index is now', lastFetchedIndex+responseData.length);
-        setData((prevData) => {
-          // Update data without creating a new array if possible
-          const combinedData = prevData.concat(responseData);
+        // setData((prevData) => {
+        //   // Update data without creating a new array if possible
+        //   const combinedData = prevData.concat(responseData);
 
-          if (combinedData.length > MAX_ROWS) {
-            // Remove the oldest rows directly in-place
-            combinedData.splice(0, combinedData.length - MAX_ROWS);
-          }
+        //   if (combinedData.length > MAX_ROWS) {
+        //     // Remove the oldest rows directly in-place
+        //     combinedData.splice(0, combinedData.length - MAX_ROWS);
+        //   }
 
-          return combinedData;
-        });
+        //   return combinedData;
+        // });
       }
     } catch (err) {
-      setError("Failed to fetch CSV data.");
+      if (err.response?.status === 404) {
+        console.log("Failed to fetch CSV data."); // Stop further requests
+        handleStopClick(); // Stop streaming automatically
+      } else {
+        setError("No more data to fetch.");
+      }
     } finally {
       setLoading(false);
     }
