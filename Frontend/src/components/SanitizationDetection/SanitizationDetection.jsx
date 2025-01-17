@@ -23,7 +23,7 @@ const SanitizationDetection = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5001/fetch-data?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
+        `http://localhost:5000/fetch-data?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
         {
           responseType: "text",
         }
