@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 // import TimeVsElementGraph from "../GenerateGraphs/TimeVsElementGraph/TimeVsElementGraph";
 import TimeVsElementSazitization from "../GenerateGraphs/SanitizationGraph/TimeVsElementSanitization";
+// import AllAnomaliesGraph from "../GenerateGraphs/AllAnomaliesGraph/AllAnomaliesGraph";
 // import DataVsAnomaliesGraph from "../GenerateGraphs/DataVsAnomaliesGraph/DataVsAnomaliesGraph";
 
 const SanitizationDetection = () => {
@@ -11,6 +12,7 @@ const SanitizationDetection = () => {
   const [streaming, setStreaming] = useState(false); // State to track streaming status
   const [intervalId, setIntervalId] = useState(null); // ID of the interval
   const [hasMoreData, setHasMoreData] = useState(true); // Whether more data is available
+  const [selectedOption, setSelectedOption] = useState("");
 
   const lastFetchedIndexRef = useRef(0); // Ref to track the last fetched index
 
@@ -21,7 +23,7 @@ const SanitizationDetection = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/fetch-data?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
+        `http://localhost:5001/fetch-data?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
         {
           responseType: "text",
         }
@@ -89,8 +91,13 @@ const SanitizationDetection = () => {
       }
     };
   }, [intervalId]);
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setSelectedOption(value);
+  };
   return (
-    <div className="w-full px-5 my-5 z-10 min-h-screen">
+    <div className="w-full px-5 py-10 z-10 max-h-screen overflow-y-scroll">
       <h2 className="text-center font-bold text-5xl mb-10">
         Sanitization Detection
       </h2>
@@ -110,6 +117,19 @@ const SanitizationDetection = () => {
             Stop Streaming
           </button>
         )}
+        <select
+          className="bg-green-500 py-2 px-5 rounded-lg text-xl"
+          value={selectedOption}
+          onChange={handleChange}
+        >
+          <option value="" disabled>
+            Check Overview
+          </option>
+          <option value="last7days">Last 7 Days</option>
+          <option value="last30days">Last 30 Days</option>
+          <option value="next7days">Next 7 Days</option>
+          <option value="next30days">Next 30 Days</option>
+        </select>
       </div>
 
       {error && <p className="text-red-500 text-center py-5">{error}</p>}
@@ -177,6 +197,7 @@ const SanitizationDetection = () => {
               color="rgba(54, 162, 235, 1)"
             />
           </div>
+          {/* <AllAnomaliesGraph data={data} /> */}
         </div>
       )}
     </div>

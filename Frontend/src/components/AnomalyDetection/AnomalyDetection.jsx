@@ -9,6 +9,8 @@ const AnomalyDetection = () => {
   const [loading, setLoading] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("");
+
   //   const [lastFetchedIndex, setLastFetchedIndex] = useState(0); // Track the last fetched index
   const lastFetchedIndexRef = useRef(0);
   // const MAX_ROWS = 600;
@@ -22,7 +24,7 @@ const AnomalyDetection = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/fetch-csv?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
+        `http://localhost:5001/fetch-csv?fileId=${fileId}&maxRows=${maxRows}&startIndex=${lastFetchedIndexRef.current}`,
         {
           responseType: "text",
         }
@@ -101,6 +103,11 @@ const AnomalyDetection = () => {
       }
     };
   }, [intervalId]);
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setSelectedOption(value);
+  };
   return (
     <div className="w-full px-5 py-10 z-10 max-h-screen overflow-y-scroll">
       <h2 className="text-center font-bold text-5xl mb-10">
@@ -122,6 +129,20 @@ const AnomalyDetection = () => {
             Stop Streaming
           </button>
         )}
+
+        <select
+          className="bg-green-500 py-2 px-5 rounded-lg text-xl"
+          value={selectedOption}
+          onChange={handleChange}
+        >
+          <option value="" disabled>
+            Check Overview
+          </option>
+          <option value="last7days">Last 7 Days</option>
+          <option value="last30days">Last 30 Days</option>
+          <option value="next7days">Next 7 Days</option>
+          <option value="next30days">Next 30 Days</option>
+        </select>
       </div>
 
       {error && <p className="text-red-500">{error}</p>}
