@@ -24,15 +24,18 @@ ChartJS.register(
 
 const TimeVsElementSazitization = ({ data, metric, label, title, color }) => {
   const [chartData, setChartData] = useState(null);
+  const [xAxisTitle, setXAxisTitle] = useState("Time");
 
   useEffect(() => {
     if (data) {
-      // Extract the timestamps and metric values
-      const times = data.map((item) =>
-        new Date(item.Timestamp).toLocaleString()
+      // Extract the date and time separately
+      const times = data.map(
+        (item) => new Date(item.Timestamp).toLocaleTimeString() // Only the time part
       );
-      const metricData = data.map((item) => parseFloat(item[metric])); // Use dynamic metric
-      // console.log(metricData);
+      const dateLabel = new Date(data[0]?.Timestamp).toLocaleDateString(); // First data point's date
+
+      const metricData = data.map((item) => parseFloat(item[metric])); // Metric values
+
       // Prepare chart data structure
       setChartData({
         labels: times,
@@ -47,6 +50,9 @@ const TimeVsElementSazitization = ({ data, metric, label, title, color }) => {
           },
         ],
       });
+
+      // Set the x-axis title dynamically
+      setXAxisTitle(dateLabel);
     }
   }, [data, metric, label, color]);
 
@@ -62,7 +68,7 @@ const TimeVsElementSazitization = ({ data, metric, label, title, color }) => {
               x: {
                 title: {
                   display: true,
-                  text: "Time",
+                  text: xAxisTitle,
                 },
               },
               y: {
