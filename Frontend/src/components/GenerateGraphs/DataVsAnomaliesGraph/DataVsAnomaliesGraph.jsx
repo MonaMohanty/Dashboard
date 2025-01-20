@@ -30,16 +30,20 @@ const DataVsAnomaliesGraph = ({
 }) => {
   //   if (!data || data.length === 0) return <p>No data available</p>;
 
-  // Extract timestamps and filter out null or undefined values
-  const timestamps = data.map((d) => d.timestamp || "Unknown");
+  // Extract times and filter out null or undefined values
+  const times = data.map((d) =>
+    d.timestamp ? new Date(d.timestamp).toLocaleTimeString() : "Unknown"
+  );
+
+  // Extract the date for the x-axis title
+  const dateLabel = data[0]?.timestamp
+    ? new Date(data[0].timestamp).toLocaleDateString()
+    : "Unknown Date";
 
   // Filter and map the data points for the selected property
   const propertyData = data
     .map((d) => parseFloat(d[property])) // Parse numeric values for the selected property
     .map((value) => (isNaN(value) ? null : value)); // Replace invalid numbers with null
-
-  //   if (propertyData.every((value) => value === null))
-  //     return <p>No valid data available</p>;
 
   // Calculate the mean and standard deviation for the valid data points
   const validData = propertyData.filter((value) => value !== null);
@@ -62,7 +66,7 @@ const DataVsAnomaliesGraph = ({
 
   // Data to be plotted in the chart
   const chartData = {
-    labels: timestamps,
+    labels: times,
     datasets: [
       {
         label: label,
@@ -76,6 +80,7 @@ const DataVsAnomaliesGraph = ({
     ],
   };
 
+  // Chart options
   const options = {
     responsive: true,
     plugins: {
@@ -95,7 +100,9 @@ const DataVsAnomaliesGraph = ({
     },
     scales: {
       y: { beginAtZero: true, title: { display: true, text: yLabel } },
-      x: { title: { display: true, text: "Timestamp" } },
+      x: {
+        title: { display: true, text: dateLabel }, // Set the date as the x-axis title
+      },
     },
   };
 
